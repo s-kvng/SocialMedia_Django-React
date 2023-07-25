@@ -32,7 +32,7 @@ class UserManager(BaseUserManager):
         if username is None:
             raise TypeError("User must have a username")
         if email is None:
-            raise TypeError("User must have an .")
+            raise TypeError("User must have an email .")
         if password is None:
             raise TypeError("User must have a password.")
         if first_name is None:
@@ -94,7 +94,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 
-    # instanciate the custom manager
+    # instaniate the custom manager
     objects = UserManager()
 
     def __str__(self):
