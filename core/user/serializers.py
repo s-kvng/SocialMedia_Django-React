@@ -5,7 +5,7 @@ from core.abstract.serializers import AbstractSerializer
 
 
 # serializers.ModelSerializer is a class inheriting from the serializers.Serializer class
-class UserSerializer(serializers.ModelSerializer, AbstractSerializer):
+class UserSerializer(AbstractSerializer):
     # It’ll automatically match the field of the model to have the correct validations for each one.
     class Meta:
         model = User
