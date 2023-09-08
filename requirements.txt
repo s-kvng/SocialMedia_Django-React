@@ -2,3 +2,4 @@ Django==4.0
 psycopg2_binary==2.9.2
 djangorestframework==3.14.0
 django_filter==23.2
+django-extensions
