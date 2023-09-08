@@ -15,12 +15,22 @@ class PostSerializer(AbstractSerializer):
             raise ValidationError("You can't create a post for another user")
         return value
 
+    #method to get user data ,along with the post data
     def to_representation(self , instance):
         rep = super().to_representation(instance)
         author = User.objects.get_object_by_public_id(rep["author"])
         rep["author"] = UserSerializer(author).data
 
         return rep
+
+    #method to update post
+    def update(self , instance , validated_data):
+        if not instance.edited:
+            validated_data['edited'] = True
+        
+        instance = super().update(instance , validated_data)
+
+        return instance 
 
     class Meta:
         model = Post
