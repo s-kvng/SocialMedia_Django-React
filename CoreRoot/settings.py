@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "core.auth",
     "core.post",
     "django_extensions",
+    "core.comment",
 ]
 
 MIDDLEWARE = [
