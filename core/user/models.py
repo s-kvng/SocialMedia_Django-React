@@ -98,6 +98,18 @@ class User(AbstractBaseUser, PermissionsMixin, AbstractModel):
     # instaniate the custom manager
     objects = UserManager()
 
+    def like(self , post):
+        """like a post if it hasn't been liked yet """
+        return self.posts_liked.add(post)
+
+    def remove_like(self , post):
+        """unlike if `post` has already been liked by user """
+        return self.posts_liked.remove(post)
+
+    def has_liked(self , post ):
+        """Return True if user has liked a post ; else false"""
+        return self.posts_liked.filter(pk=post.pk).exists()
+
     def __str__(self):
         return f"{self.email}"
 
