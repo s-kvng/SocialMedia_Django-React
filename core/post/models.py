@@ -15,7 +15,7 @@ class PostManager(AbstractManager):
 class Post(AbstractModel):
     # this ForeignKey makes it symmetrical , meaning I can query using Post.author and also use User.post_set
     #post_set attribute contains all the instructions needed to interact with all the posts linked to this user
-    author = models.ForeignKey(to="core_user.User", on_delete=models.CASCADE)
+    author = models.ForeignKey(to="core_user.User", on_delete=models.CASCADE, related_name="posts")
     body = models.TextField()
     edited = models.BooleanField(default=False)
 

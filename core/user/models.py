@@ -86,6 +86,7 @@ class User(AbstractBaseUser, PermissionsMixin, AbstractModel):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     bio = models.TextField(null=True)
+    posts_liked = models.ManyToManyField("core_post.Post", related_name="liked_by")
     avatar = models.ImageField(null=True, blank=True)
     email = models.EmailField(db_index=True, unique=True)
     is_active = models.BooleanField(default=True)
@@ -96,6 +97,18 @@ class User(AbstractBaseUser, PermissionsMixin, AbstractModel):
 
     # instaniate the custom manager
     objects = UserManager()
+
+    def like(self , post):
+        """like a post if it hasn't been liked yet """
+        return self.posts_liked.add(post)
+
+    def remove_like(self , post):
+        """unlike if `post` has already been liked by user """
+        return self.posts_liked.remove(post)
+
+    def has_liked(self , post ):
+        """Return True if user has liked a post ; else false"""
+        return self.posts_liked.filter(pk=post.pk).exists()
 
     def __str__(self):
         return f"{self.email}"
