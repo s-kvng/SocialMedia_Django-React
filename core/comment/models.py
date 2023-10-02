@@ -1,9 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
-from django.db import models
-
 from core.abstract.models import AbstractModel , AbstractManager 
 
 # Create your models here.
@@ -21,6 +17,6 @@ class Comment(AbstractModel):
 
     def __str__(self):
         return f"{self.author.name}"
-
+-
     class Meta:
         db_table="'core_comment'"
