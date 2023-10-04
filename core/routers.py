@@ -3,7 +3,7 @@ from rest_framework_nested import routers
 from core.user.viewsets import UserViewSet
 from core.post.viewsets import PostViewSet
 from core.auth.viewsets import RegisterViewSet, LoginViewSet, RefreshViewSet
-from core.comment.viewset import CommentViewSet
+from core.comment.viewsets import CommentViewSet
 
 
 """_summary_
