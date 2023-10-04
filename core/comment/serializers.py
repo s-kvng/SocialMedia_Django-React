@@ -24,6 +24,7 @@ class CommentSerializer(AbstractSerializer):
             return self.instance.post
         return  value
 
+
     '''return user object along with the comment object'''
     def to_representation(self , instance):
         #get the default object of the comment
@@ -35,6 +36,12 @@ class CommentSerializer(AbstractSerializer):
 
         return rep
 
+    '''Update comment'''
+    def update(self , instance , validated_data):
+        if not instance.edited:
+            validated_data['edited'] = True
+        instance = super().update(instance, validated_data)
+        return instance
     
     class Meta:
         model = Comment
