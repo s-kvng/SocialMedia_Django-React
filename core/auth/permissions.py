@@ -4,6 +4,7 @@ class UserPermission(BasePermission):
     ''' This method checks permission based on specific objects'''
     def has_object_permission(self , request , view, obj):
         if request.user.is_anonymous:
+            #return true if request is made from a safe method, else false
             return request.method in SAFE_METHODS
         
         if view.basename in ["post"]:
