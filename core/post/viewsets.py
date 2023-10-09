@@ -6,10 +6,11 @@ from rest_framework.decorators import action
 from core.abstract.viewsets import AbstractViewSet
 from core.post.models import Post
 from core.post.serializers import PostSerializer
+from core.auth.permissions import UserPermission
 
 class PostViewSet(AbstractViewSet):
     http_method_names = ("get","post","put","delete")
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (UserPermission, )
     serializer_class = PostSerializer
 
 
