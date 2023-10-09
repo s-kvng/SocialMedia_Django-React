@@ -4,3 +4,4 @@ djangorestframework==3.14.0
 django_filter==23.2
 django-extensions
 drf-nested-routers
+django-cors-headers
