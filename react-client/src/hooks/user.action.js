@@ -33,12 +33,13 @@ function getUser() {
 }
 
 function getAccessToken() {
-  const auth = localStorage.getItem("auth");
+  const auth = JSON.parse(localStorage.getItem("auth"));
+  console.log(auth.access);
   return auth.access;
 }
 
 function getRefeshToken() {
-  const auth = localStorage.getItem("auth");
+  const auth = JSON.parse(localStorage.getItem("auth"));
   return auth.refresh;
 }
 

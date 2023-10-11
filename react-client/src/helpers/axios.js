@@ -3,7 +3,7 @@ import createAuthRefreshInterceptor from "axios-auth-refresh";
 import { getAccessToken, getRefeshToken, getUser } from "../hooks/user.action";
 
 //create an axios instance
-const axoisService = axios.create({
+const axiosService = axios.create({
   baseURL: "http://localhost:8000/api",
   headers: {
     "Content-Type": "application/json",
@@ -11,7 +11,7 @@ const axoisService = axios.create({
 });
 
 //interceptors manipulate the request before been sent, by adding the access token to the header of the request
-axoisService.interceptors.request.use(async (config) => {
+axiosService.interceptors.request.use(async (config) => {
   /* retrieving the access token from the localStorage and adding it to the headers of the request*/
   // const { access } = JSON.parse(localStorage.getItem("auth"));
   config.headers.Authorization = `Bearer ${getAccessToken()}`;
@@ -19,7 +19,7 @@ axoisService.interceptors.request.use(async (config) => {
   return config;
 });
 
-axoisService.interceptors.response.use(
+axiosService.interceptors.response.use(
   (res) => Promise.resolve(res),
   (err) => Promise.resolve(err)
 );
@@ -55,12 +55,12 @@ const refreshAuthLogic = async (failedRequest) => {
 };
 
 //sets up the authentication refresh interceptor
-createAuthRefreshInterceptor(axoisService, refreshAuthLogic);
+createAuthRefreshInterceptor(axiosService, refreshAuthLogic);
 
 export function fetcher(url) {
-  return axoisService.get(url).then((res) => {
+  return axiosService.get(url).then((res) => {
     return res.data;
   });
 }
 
-export default axoisService;
+export default axiosService;
