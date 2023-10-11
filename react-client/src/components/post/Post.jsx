@@ -1,0 +1,7 @@
+import React, { useState } from "react";
+
+const Post = () => {
+  return <div>Post</div>;
+};
+
+export default Post;
