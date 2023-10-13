@@ -36,7 +36,7 @@ const Home = () => {
               />
             </Col>
             <Col sm={10} className="flex-grow-1">
-              <CreatePost />
+              <CreatePost refresh={posts.mutate} />
             </Col>
           </Row>
           <Row className="my-4">

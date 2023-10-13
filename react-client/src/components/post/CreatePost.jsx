@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { Modal, Form, Button } from "react-bootstrap";
 import { getUser } from "../../hooks/user.action";
-import Toaster from "../Toaster";
 import axiosService from "../../helpers/axios";
+import { Context } from "../Layout";
 
 const CreatePost = (props) => {
+  const { setToaster } = useContext(Context);
+
   const { refresh } = props;
   const [show, setShow] = useState(false);
-  const [showToast, setShowToast] = useState(false);
   const [form, setForm] = useState({});
-  const [toastMessage, setToastMessage] = useState("");
-  const [toastType, setToastType] = useState("");
+
   const [validated, setValidated] = useState(null);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -38,15 +38,22 @@ const CreatePost = (props) => {
       .post("/post/", data)
       .then(() => {
         handleClose();
-        setToastMessage("Post created 🚀");
-        setToastType("success");
+        setToaster({
+          title: "Post",
+          show: true,
+          message: "Post created 🚀",
+          type: "success",
+        });
         setForm({});
-        setShowToast(true);
-        // refresh();
+        refresh();
       })
       .catch(() => {
-        setToastMessage("An error occurred.");
-        setToastType("danger");
+        setToaster({
+          title: "Post",
+          show: true,
+          message: "An error occurred. 🚀",
+          type: "danger",
+        });
       });
   };
 
@@ -88,13 +95,6 @@ const CreatePost = (props) => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Toaster
-        title="Post!"
-        message={toastMessage}
-        showToast={showToast}
-        type={toastType}
-        onClose={() => setShowToast(false)}
-      />
     </>
   );
 };
