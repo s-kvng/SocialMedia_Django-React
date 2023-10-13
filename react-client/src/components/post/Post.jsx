@@ -10,6 +10,22 @@ import {
 import { Image, Card, Dropdown } from "react-bootstrap";
 import { randomAvatar } from "../../utils";
 import axiosService from "../../helpers/axios";
+import { getUser } from "../../hooks/user.action";
+import Toaster from "../Toaster";
+import axios from "axios";
+
+const MoreToggleIcon = React.forwardRef(({ onClick }, ref) => (
+  <a
+    href="#"
+    ref={ref}
+    onClick={(e) => {
+      e.preventDefault();
+      onClick(e);
+    }}
+  >
+    <MoreOutlined />
+  </a>
+));
 
 const Post = (props) => {
   const { post, refresh } = props;
@@ -17,6 +33,7 @@ const Post = (props) => {
 
   const user = getUser();
 
+  //perform like and unlike action
   const handleLikeClick = (action) => {
     axiosService
       .post(`/post/${post.id}/${action}/`)
@@ -25,6 +42,20 @@ const Post = (props) => {
       })
       .catch((err) => console.error(err));
   };
+
+  //perform delete operation on post
+  const handleDelete = () => {
+    axiosService
+      .delete(`/post/${post.id}/`)
+      .then(() => {
+        setShowToast(true);
+        refresh();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   return (
     <>
       <Card className=" rounded-3 my-4">
@@ -39,18 +70,18 @@ const Post = (props) => {
                 className="me-2 border border-primary border-2"
               />
               <div className="d-flex flex-column justify-content-start align-self-center mt-2">
-                <p className="fs-6 m-0">{post.author.name}</p>
+                <p className="fs-6 m-0">{post.author.username}</p>
                 <p className="fs-6 fw-lighter">
-                  <small>{format(post.created)}</small>
+                  <small>{format(post.created_at)}</small>
                 </p>
               </div>
             </div>
-            {user.name === post.author.name && (
+            {user.username === post.author.username && (
               <div>
                 <Dropdown>
                   <Dropdown.Toggle as={MoreToggleIcon}></Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <UpdatePost post={post} refresh={refresh} />
+                    {/* <UpdatePost post={post} refresh={refresh} /> */}
                     <Dropdown.Item
                       onClick={handleDelete}
                       className="text-danger"

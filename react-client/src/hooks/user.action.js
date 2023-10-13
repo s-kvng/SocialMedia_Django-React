@@ -5,7 +5,7 @@ function useUserActions() {
   const navigate = useNavigate();
   const baseURL = "http://localhost:8000/api";
 
-  return { login, logout };
+  return { login, register, logout };
 
   function login(data) {
     return axios.post(`${baseURL}/auth/login/`, data).then((res) => {
@@ -14,6 +14,14 @@ function useUserActions() {
       navigate("/");
     });
     //
+  }
+
+  function register(data) {
+    return axios.post(`${baseURL}/auth/register/`, data).then((res) => {
+      console.log(res.data);
+      setUserData(res.data);
+      navigate("/");
+    });
   }
 
   function logout() {

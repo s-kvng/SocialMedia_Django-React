@@ -29,7 +29,7 @@ class RegisterViewSet(ViewSet):
             {
                 "user": serializer.data,
                 "refresh": res["refresh"],
-                "token": res["access"],
+                "access": res["access"],
             },
             status=status.HTTP_201_CREATED,
         )
